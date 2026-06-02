@@ -400,6 +400,95 @@
     .testi-toggle-bar{right:2rem;}
   }
 
+
+  /* ── FAQ ── */
+  #faq{background:var(--anthracite);}
+  .faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:3.5rem;}
+  .faq-item{
+    border:1px solid rgba(245,242,237,0.07);border-radius:2px;
+    overflow:hidden;transition:border-color .3s;
+  }
+  .faq-item:hover{border-color:rgba(46,204,138,0.2);}
+  .faq-question{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:1.3rem 1.5rem;cursor:pointer;
+    font-size:0.92rem;font-weight:600;color:var(--cream);
+    background:var(--anthracite-light);
+    user-select:none;gap:1rem;
+  }
+  .faq-question .faq-icon{
+    width:22px;height:22px;flex-shrink:0;
+    border:1px solid rgba(46,204,138,0.3);border-radius:2px;
+    display:flex;align-items:center;justify-content:center;
+    color:var(--emerald);font-size:0.9rem;transition:transform .3s;
+  }
+  .faq-item.open .faq-icon{transform:rotate(45deg);}
+  .faq-answer{
+    max-height:0;overflow:hidden;
+    transition:max-height .4s ease, padding .3s;
+    font-size:0.87rem;color:var(--text-muted);line-height:1.75;
+    padding:0 1.5rem;background:var(--anthracite);
+  }
+  .faq-item.open .faq-answer{max-height:300px;padding:1.2rem 1.5rem;}
+  @media(max-width:900px){.faq-grid{grid-template-columns:1fr;}}
+
+  /* ── TEAM ── */
+  #team{background:var(--anthracite-light);}
+  .team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3.5rem;}
+  .team-card{
+    background:var(--anthracite);border:1px solid rgba(245,242,237,0.06);
+    border-radius:2px;padding:2rem;text-align:center;
+    transition:all .4s;position:relative;overflow:hidden;
+  }
+  .team-card::before{
+    content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+    background:var(--emerald);transform:scaleX(0);transform-origin:center;
+    transition:transform .4s;
+  }
+  .team-card:hover{transform:translateY(-4px);border-color:rgba(46,204,138,0.12);}
+  .team-card:hover::before{transform:scaleX(1);}
+  .team-avatar{
+    width:72px;height:72px;border-radius:2px;
+    background:var(--anthracite-mid);
+    border:1px solid rgba(46,204,138,0.2);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.8rem;font-weight:700;color:var(--emerald);
+    margin:0 auto 1.2rem;
+  }
+  .team-card h4{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;color:var(--cream);margin-bottom:0.3rem;}
+  .team-card .role{font-size:0.78rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--emerald);margin-bottom:0.8rem;}
+  .team-card p{font-size:0.83rem;color:var(--text-muted);line-height:1.65;}
+  .team-skills{display:flex;flex-wrap:wrap;gap:0.4rem;justify-content:center;margin-top:1rem;}
+  .team-skill{font-size:0.65rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:0.25rem 0.6rem;border:1px solid rgba(46,204,138,0.18);color:var(--text-muted);border-radius:2px;}
+  @media(max-width:900px){.team-grid{grid-template-columns:1fr 1fr;}}
+  @media(max-width:600px){.team-grid{grid-template-columns:1fr;}}
+
+  /* ── CTA FINAL ── */
+  #cta-final{
+    background:linear-gradient(135deg,var(--anthracite-light) 0%,var(--anthracite) 100%);
+    border-top:1px solid rgba(46,204,138,0.1);
+    border-bottom:1px solid rgba(46,204,138,0.1);
+    padding:6rem 4rem;text-align:center;position:relative;overflow:hidden;
+  }
+  #cta-final::before{
+    content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:600px;height:600px;
+    background:radial-gradient(circle,rgba(46,204,138,0.06) 0%,transparent 70%);
+    pointer-events:none;
+  }
+  .cta-final-content{position:relative;z-index:1;max-width:680px;margin:0 auto;}
+  .cta-final-content h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:300;color:var(--cream);margin-bottom:1.2rem;line-height:1.2;}
+  .cta-final-content h2 span{color:var(--emerald);}
+  .cta-final-content p{font-size:1rem;color:var(--text-muted);line-height:1.75;margin-bottom:2.5rem;}
+  .cta-final-actions{display:flex;gap:1.2rem;justify-content:center;flex-wrap:wrap;}
+  .cta-badge{
+    display:inline-flex;align-items:center;gap:0.5rem;
+    font-size:0.75rem;font-weight:500;color:var(--text-muted);
+    margin-top:2rem;
+  }
+  .cta-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--emerald);}
+
 </style>
 </head>
 <body>
@@ -436,6 +525,10 @@
     <a href="#services" class="en-text" style="display:none">Services</a>
     <a href="#why" class="fr-text">À propos</a>
     <a href="#why" class="en-text" style="display:none">About</a>
+    <a href="#team" class="fr-text">Équipe</a>
+    <a href="#team" class="en-text" style="display:none">Team</a>
+    <a href="#faq" class="fr-text">FAQ</a>
+    <a href="#faq" class="en-text" style="display:none">FAQ</a>
     <a href="#contact" class="fr-text">Contact</a>
     <a href="#contact" class="en-text" style="display:none">Contact</a>
     <a href="#contact" class="nav-cta fr-text">Devis gratuit</a>
@@ -698,7 +791,9 @@
       </a>
     </div>
 
-    <form class="contact-form" onsubmit="handleSubmit(event)">
+    <form class="contact-form" id="contactForm" action="https://formspree.io/f/mykvrvyy" method="POST" onsubmit="handleSubmit(event)" novalidate>
+      <input type="hidden" name="_subject" value="Nouveau message SemÔth"/>
+      <input type="hidden" name="_replyto" id="replyto"/>
       <div class="form-row">
         <div class="field">
           <label class="fr-text">Nom complet *</label>
@@ -752,6 +847,136 @@
         <span class="en-text" style="display:none">Message sent! We'll get back to you within 24h.</span>
       </div>
     </form>
+  </div>
+</section>
+
+<!-- ── FAQ ── -->
+<section id="faq">
+  <div class="section-tag fr-text">Questions fréquentes</div>
+  <div class="section-tag en-text" style="display:none">Frequently asked questions</div>
+  <h2 class="fr-text">Tout ce que vous voulez <span>savoir</span></h2>
+  <h2 class="en-text" style="display:none">Everything you want to <span>know</span></h2>
+
+  <div class="faq-grid">
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <span class="fr-text">Comment se déroule une mission de conseil SI ?</span>
+        <span class="en-text" style="display:none">How does an IT consulting mission work?</span>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-answer fr-text">Nous commençons par un audit de votre existant, puis nous proposons une feuille de route adaptée à vos objectifs et votre budget. Chaque étape est validée avec vous avant exécution.</div>
+      <div class="faq-answer en-text" style="display:none">We start with an audit of your current setup, then propose a roadmap tailored to your goals and budget. Each step is validated with you before execution.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <span class="fr-text">Proposez-vous des formations certifiantes ?</span>
+        <span class="en-text" style="display:none">Do you offer certified training?</span>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-answer fr-text">Oui, certains de nos programmes préparent à des certifications reconnues (CompTIA, Cisco, etc.). Contactez-nous pour connaître le programme adapté à votre niveau et vos objectifs.</div>
+      <div class="faq-answer en-text" style="display:none">Yes, some of our programs prepare for recognized certifications (CompTIA, Cisco, etc.). Contact us to find the program suited to your level and goals.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <span class="fr-text">Intervenez-vous en urgence pour des incidents cyber ?</span>
+        <span class="en-text" style="display:none">Do you respond urgently to cyber incidents?</span>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-answer fr-text">Oui. Nous disposons d'une cellule de réponse aux incidents disponible rapidement. En cas d'urgence, contactez-nous directement par WhatsApp ou téléphone pour une intervention prioritaire.</div>
+      <div class="faq-answer en-text" style="display:none">Yes. We have an incident response team available quickly. In case of emergency, contact us directly via WhatsApp or phone for priority intervention.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <span class="fr-text">Livrez-vous le matériel informatique partout à Abidjan ?</span>
+        <span class="en-text" style="display:none">Do you deliver IT hardware across Abidjan?</span>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-answer fr-text">Oui, nous livrons et installons le matériel dans toutes les communes d'Abidjan. Pour les grandes quantités ou hors Abidjan, contactez-nous pour un devis livraison personnalisé.</div>
+      <div class="faq-answer en-text" style="display:none">Yes, we deliver and install hardware across all Abidjan districts. For large quantities or outside Abidjan, contact us for a custom delivery quote.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <span class="fr-text">Le support technique à distance est-il disponible 24h/24 ?</span>
+        <span class="en-text" style="display:none">Is remote technical support available 24/7?</span>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-answer fr-text">Notre support est disponible en heures ouvrables étendue. Des contrats d'infogérance avec astreinte 24/7 sont disponibles pour les entreprises qui nécessitent une disponibilité permanente.</div>
+      <div class="faq-answer en-text" style="display:none">Our support is available during extended business hours. 24/7 on-call managed service contracts are available for businesses requiring permanent availability.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <span class="fr-text">Comment obtenir un devis rapidement ?</span>
+        <span class="en-text" style="display:none">How to get a quote quickly?</span>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-answer fr-text">Remplissez le formulaire de contact ou écrivez-nous directement sur WhatsApp. Nous vous répondons sous 24h avec une proposition adaptée à vos besoins et votre budget.</div>
+      <div class="faq-answer en-text" style="display:none">Fill out the contact form or message us directly on WhatsApp. We'll get back to you within 24h with a proposal tailored to your needs and budget.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── TEAM ── -->
+<section id="team">
+  <div class="section-tag fr-text">Notre équipe</div>
+  <div class="section-tag en-text" style="display:none">Our team</div>
+  <h2 class="fr-text">Des experts à votre <span>service</span></h2>
+  <h2 class="en-text" style="display:none">Experts at your <span>service</span></h2>
+  <p class="section-intro fr-text">Une équipe pluridisciplinaire passionnée, engagée à vous apporter le meilleur de la technologie et de la gestion.</p>
+  <p class="section-intro en-text" style="display:none">A passionate multidisciplinary team, committed to bringing you the best of technology and management.</p>
+
+  <div class="team-grid">
+
+    <div class="team-card">
+      <div class="team-avatar">MS</div>
+      <h4>Maxime Sey</h4>
+      <div class="role fr-text">Fondateur & Directeur</div>
+      <div class="role en-text" style="display:none">Founder & Director</div>
+      <p class="fr-text">Expert en systèmes d'information et transformation digitale, il pilote la vision stratégique et les grands comptes de SemÔth.</p>
+      <p class="en-text" style="display:none">Expert in information systems and digital transformation, he drives the strategic vision and key accounts of SemÔth.</p>
+      <div class="team-skills">
+        <span class="team-skill">SI</span>
+        <span class="team-skill">Stratégie</span>
+        <span class="team-skill">Management</span>
+      </div>
+    </div>
+
+    <div class="team-card">
+      <div class="team-avatar">—</div>
+      <h4 class="fr-text">Responsable Cyber</h4>
+      <h4 class="en-text" style="display:none">Cyber Lead</h4>
+      <div class="role fr-text">Cybersécurité & Audit</div>
+      <div class="role en-text" style="display:none">Cybersecurity & Audit</div>
+      <p class="fr-text">Spécialiste en sécurité offensive et défensive, il conduit les audits et met en place les politiques de protection de nos clients.</p>
+      <p class="en-text" style="display:none">Specialist in offensive and defensive security, he leads audits and implements protection policies for our clients.</p>
+      <div class="team-skills">
+        <span class="team-skill">Pentest</span>
+        <span class="team-skill">SIEM</span>
+        <span class="team-skill">ISO 27001</span>
+      </div>
+    </div>
+
+    <div class="team-card">
+      <div class="team-avatar">—</div>
+      <h4 class="fr-text">Responsable Formation</h4>
+      <h4 class="en-text" style="display:none">Training Lead</h4>
+      <div class="role fr-text">Formation & Pédagogie</div>
+      <div class="role en-text" style="display:none">Training & Pedagogy</div>
+      <p class="fr-text">Formateur certifié, il conçoit les programmes de montée en compétences adaptés à chaque profil, du débutant à l'expert.</p>
+      <p class="en-text" style="display:none">Certified trainer, he designs skills development programs tailored to each profile, from beginner to expert.</p>
+      <div class="team-skills">
+        <span class="team-skill">CompTIA</span>
+        <span class="team-skill">Cisco</span>
+        <span class="team-skill">E-learning</span>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -879,6 +1104,28 @@
   </div><!-- end testiContent -->
 </section>
 
+<!-- ── CTA FINAL ── -->
+<section id="cta-final">
+  <div class="cta-final-content">
+    <div class="section-tag fr-text" style="justify-content:center;">Prêt à démarrer ?</div>
+    <div class="section-tag en-text" style="display:none;justify-content:center;">Ready to start?</div>
+    <h2 class="fr-text">Votre projet mérite une<br><span>expertise de confiance</span></h2>
+    <h2 class="en-text" style="display:none">Your project deserves<br><span>trusted expertise</span></h2>
+    <p class="fr-text">Que vous soyez une entreprise en pleine croissance ou un particulier en quête d'autonomie numérique, SemÔth est votre partenaire de référence à Abidjan.</p>
+    <p class="en-text" style="display:none">Whether you're a growing business or an individual seeking digital autonomy, SemÔth is your go-to partner in Abidjan.</p>
+    <div class="cta-final-actions">
+      <a href="#contact" class="btn-primary fr-text">Demander un devis gratuit →</a>
+      <a href="#contact" class="btn-primary en-text" style="display:none">Request a free quote →</a>
+      <a href="https://wa.me/2250707291110" target="_blank" class="btn-outline" style="display:inline-flex;align-items:center;gap:0.6rem;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp
+      </a>
+    </div>
+    <div class="cta-badge fr-text">Réponse sous 24h garantie · Cocody, Abidjan</div>
+    <div class="cta-badge en-text" style="display:none">Response within 24h guaranteed · Cocody, Abidjan</div>
+  </div>
+</section>
+
 <!-- ── FOOTER ── -->
 <footer>
   <div>
@@ -917,6 +1164,14 @@
 </footer>
 
 <script>
+  // FAQ TOGGLE
+  function toggleFaq(el){
+    const item = el.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i=>i.classList.remove('open'));
+    if(!isOpen) item.classList.add('open');
+  }
+
   // LANG TOGGLE
   function setLang(lang){
     document.querySelectorAll('.fr-text').forEach(el=>{
@@ -933,13 +1188,30 @@
   // FORM
   function handleSubmit(e){
     e.preventDefault();
-    const btn = e.target.querySelector('.btn-submit');
-    btn.textContent='...';btn.disabled=true;
-    setTimeout(()=>{
-      document.getElementById('formSuccess').style.display='block';
-      btn.style.display='none';
-      e.target.reset();
-    },1200);
+    const form = e.target;
+    const btn = form.querySelector('.btn-submit');
+    btn.textContent='Envoi en cours...';
+    btn.disabled=true;
+
+    fetch('https://formspree.io/f/mykvrvyy', {
+      method:'POST',
+      body: new FormData(form),
+      headers:{'Accept':'application/json'}
+    })
+    .then(r=>{
+      if(r.ok){
+        document.getElementById('formSuccess').style.display='block';
+        btn.style.display='none';
+        form.reset();
+      } else {
+        btn.textContent='Erreur — réessayez';
+        btn.disabled=false;
+      }
+    })
+    .catch(()=>{
+      btn.textContent='Erreur réseau — réessayez';
+      btn.disabled=false;
+    });
   }
 
   // SCROLL REVEAL
