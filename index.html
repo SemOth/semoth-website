@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SemÔth — Innover. Sécuriser. Prospérer.</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --anthracite: #1c1f22;
+    --anthracite-light: #2a2e33;
+    --anthracite-mid: #353a40;
+    --emerald: #2ecc8a;
+    --emerald-dark: #1fa86d;
+    --emerald-glow: rgba(46,204,138,0.12);
+    --cream: #f5f2ed;
+    --cream-soft: #ede9e2;
+    --white: #ffffff;
+    --text-muted: #8a9099;
+    --gold: #c9a84c;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'DM Sans',sans-serif;
+    background:var(--anthracite);
+    color:var(--cream);
+    overflow-x:hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before{
+    content:'';
+    position:fixed;top:0;left:0;width:100%;height:100%;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events:none;z-index:9999;opacity:0.4;
+  }
+
+  /* ── NAVBAR ── */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:1.2rem 4rem;
+    background:rgba(28,31,34,0.85);
+    backdrop-filter:blur(18px);
+    border-bottom:1px solid rgba(46,204,138,0.1);
+  }
+  .nav-logo{display:flex;align-items:center;gap:1rem;text-decoration:none;}
+  .logo-svg-wrap svg{width:52px;height:52px;}
+  .logo-text{display:flex;flex-direction:column;line-height:1;}
+  .logo-text .sig{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:300;color:var(--text-muted);letter-spacing:0.2em;text-transform:uppercase;}
+  .logo-text .name{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;color:var(--cream);letter-spacing:0.05em;}
+  .logo-text .name span{color:var(--emerald);}
+  .nav-links{display:flex;align-items:center;gap:2.5rem;}
+  .nav-links a{
+    font-size:0.82rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;
+    color:var(--text-muted);text-decoration:none;transition:color .3s;
+  }
+  .nav-links a:hover{color:var(--emerald);}
+  .nav-cta{
+    padding:0.55rem 1.5rem;
+    border:1px solid var(--emerald);
+    color:var(--emerald);
+    border-radius:2px;
+    font-size:0.8rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;
+    text-decoration:none;transition:all .3s;
+  }
+  .nav-cta:hover{background:var(--emerald);color:var(--anthracite);}
+
+  /* ── LANG TOGGLE ── */
+  .lang-toggle{
+    display:flex;gap:0;border:1px solid var(--anthracite-mid);border-radius:2px;overflow:hidden;
+  }
+  .lang-toggle button{
+    background:none;border:none;
+    padding:0.4rem 0.7rem;font-size:0.72rem;font-weight:600;letter-spacing:0.08em;
+    cursor:pointer;color:var(--text-muted);transition:all .2s;
+  }
+  .lang-toggle button.active{background:var(--emerald);color:var(--anthracite);}
+
+  /* ── HERO ── */
+  #hero{
+    min-height:100vh;display:flex;align-items:center;
+    padding:8rem 4rem 5rem;
+    position:relative;overflow:hidden;
+  }
+  .hero-bg-line{
+    position:absolute;right:-10%;top:50%;transform:translateY(-50%);
+    width:700px;height:700px;
+    border-radius:50%;
+    border:1px solid rgba(46,204,138,0.07);
+  }
+  .hero-bg-line::before{
+    content:'';position:absolute;inset:50px;border-radius:50%;
+    border:1px solid rgba(46,204,138,0.05);
+  }
+  .hero-glow{
+    position:absolute;right:5%;top:20%;
+    width:400px;height:400px;
+    background:radial-gradient(circle, rgba(46,204,138,0.08) 0%, transparent 70%);
+    pointer-events:none;
+  }
+  .hero-content{max-width:780px;position:relative;z-index:1;}
+  .hero-tag{
+    display:inline-flex;align-items:center;gap:0.6rem;
+    font-size:0.72rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;
+    color:var(--emerald);margin-bottom:2rem;
+  }
+  .hero-tag::before{content:'';width:28px;height:1px;background:var(--emerald);}
+  h1{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(3.5rem,6vw,6rem);
+    font-weight:300;line-height:1.05;
+    color:var(--cream);margin-bottom:1.5rem;
+  }
+  h1 em{font-style:normal;color:var(--emerald);}
+  h1 strong{font-weight:700;}
+  .hero-sub{
+    font-size:1.05rem;font-weight:300;line-height:1.75;
+    color:var(--text-muted);max-width:560px;margin-bottom:3rem;
+  }
+  .hero-actions{display:flex;gap:1.2rem;flex-wrap:wrap;}
+  .btn-primary{
+    padding:1rem 2.5rem;
+    background:var(--emerald);color:var(--anthracite);
+    font-weight:700;font-size:0.85rem;letter-spacing:0.1em;text-transform:uppercase;
+    border:none;border-radius:2px;cursor:pointer;text-decoration:none;
+    transition:all .3s;
+  }
+  .btn-primary:hover{background:var(--emerald-dark);transform:translateY(-2px);}
+  .btn-outline{
+    padding:1rem 2.5rem;
+    background:transparent;color:var(--cream);
+    font-weight:500;font-size:0.85rem;letter-spacing:0.1em;text-transform:uppercase;
+    border:1px solid rgba(245,242,237,0.25);border-radius:2px;cursor:pointer;text-decoration:none;
+    transition:all .3s;
+  }
+  .btn-outline:hover{border-color:var(--cream);background:rgba(245,242,237,0.05);}
+  .hero-stats{
+    margin-top:5rem;
+    display:flex;gap:4rem;
+    padding-top:3rem;
+    border-top:1px solid rgba(245,242,237,0.08);
+  }
+  .stat-item .num{
+    font-family:'Cormorant Garamond',serif;
+    font-size:2.8rem;font-weight:700;color:var(--emerald);
+  }
+  .stat-item .lbl{font-size:0.75rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-top:0.3rem;}
+
+  /* ── SECTION COMMON ── */
+  section{padding:7rem 4rem;}
+  .section-tag{
+    font-size:0.72rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;
+    color:var(--emerald);margin-bottom:1.2rem;
+    display:flex;align-items:center;gap:0.6rem;
+  }
+  .section-tag::before{content:'';width:20px;height:1px;background:var(--emerald);}
+  h2{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(2.2rem,4vw,3.5rem);
+    font-weight:400;color:var(--cream);margin-bottom:1rem;line-height:1.15;
+  }
+  h2 span{color:var(--emerald);}
+  .section-intro{font-size:1rem;color:var(--text-muted);line-height:1.75;max-width:580px;}
+
+  /* ── SERVICES ── */
+  #services{background:var(--anthracite);}
+  .services-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:4rem;flex-wrap:wrap;gap:2rem;}
+  .services-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:1.5px;
+    background:rgba(245,242,237,0.06);
+  }
+  .service-card{
+    background:var(--anthracite);
+    padding:2.5rem;
+    position:relative;overflow:hidden;
+    transition:all .4s;
+    cursor:default;
+  }
+  .service-card::before{
+    content:'';
+    position:absolute;bottom:0;left:0;right:0;height:2px;
+    background:var(--emerald);
+    transform:scaleX(0);transform-origin:left;
+    transition:transform .4s;
+  }
+  .service-card:hover{background:var(--anthracite-light);}
+  .service-card:hover::before{transform:scaleX(1);}
+  .service-num{
+    font-family:'Cormorant Garamond',serif;
+    font-size:3.5rem;font-weight:700;
+    color:rgba(46,204,138,0.12);
+    position:absolute;top:1.5rem;right:1.5rem;
+    line-height:1;
+    transition:color .4s;
+  }
+  .service-card:hover .service-num{color:rgba(46,204,138,0.2);}
+  .service-icon{
+    width:44px;height:44px;
+    border:1px solid rgba(46,204,138,0.3);
+    border-radius:2px;
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:1.5rem;
+    color:var(--emerald);
+    font-size:1.2rem;
+  }
+  .service-card h3{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.4rem;font-weight:600;color:var(--cream);
+    margin-bottom:0.8rem;line-height:1.2;
+  }
+  .service-card p{font-size:0.87rem;color:var(--text-muted);line-height:1.7;}
+
+  /* ── WHY ── */
+  #why{background:var(--anthracite-light);}
+  .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;margin-top:4rem;}
+  .why-visual{position:relative;}
+  .why-box{
+    background:var(--anthracite);border:1px solid rgba(46,204,138,0.12);
+    padding:3rem;border-radius:2px;
+    position:relative;
+  }
+  .why-box::after{
+    content:'';
+    position:absolute;top:1rem;left:1rem;right:-1rem;bottom:-1rem;
+    border:1px solid rgba(46,204,138,0.06);
+    border-radius:2px;z-index:-1;
+  }
+  .why-box .big-letter{
+    font-family:'Cormorant Garamond',serif;
+    font-size:10rem;font-weight:700;
+    color:rgba(46,204,138,0.06);
+    position:absolute;bottom:-1rem;right:1rem;line-height:1;
+    pointer-events:none;
+  }
+  .why-pillars{display:flex;flex-direction:column;gap:2rem;}
+  .pillar{display:flex;gap:1.5rem;align-items:flex-start;}
+  .pillar-dot{
+    width:8px;height:8px;border-radius:50%;
+    background:var(--emerald);flex-shrink:0;margin-top:0.5rem;
+  }
+  .pillar h4{font-size:1rem;font-weight:600;color:var(--cream);margin-bottom:0.4rem;}
+  .pillar p{font-size:0.85rem;color:var(--text-muted);line-height:1.65;}
+
+  /* ── CONTACT ── */
+  #contact{background:var(--anthracite);}
+  .contact-wrap{display:grid;grid-template-columns:1fr 1.4fr;gap:6rem;margin-top:4rem;}
+  .contact-info h3{
+    font-family:'Cormorant Garamond',serif;
+    font-size:2rem;font-weight:400;color:var(--cream);margin-bottom:2rem;
+  }
+  .contact-detail{display:flex;align-items:center;gap:1rem;margin-bottom:1.2rem;}
+  .contact-detail .icon{
+    width:36px;height:36px;
+    border:1px solid rgba(46,204,138,0.25);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--emerald);font-size:0.9rem;flex-shrink:0;
+  }
+  .contact-detail span{font-size:0.9rem;color:var(--text-muted);}
+  .contact-detail a{color:var(--cream);text-decoration:none;}
+  .contact-detail a:hover{color:var(--emerald);}
+
+  /* Form */
+  .contact-form{display:flex;flex-direction:column;gap:1.2rem;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
+  .field{display:flex;flex-direction:column;gap:0.4rem;}
+  .field label{font-size:0.72rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);}
+  .field input,.field select,.field textarea{
+    background:var(--anthracite-light);
+    border:1px solid rgba(245,242,237,0.1);
+    color:var(--cream);
+    padding:0.85rem 1rem;
+    font-family:'DM Sans',sans-serif;font-size:0.9rem;
+    border-radius:2px;outline:none;
+    transition:border-color .3s;
+  }
+  .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--emerald);}
+  .field textarea{resize:vertical;min-height:110px;}
+  .field select option{background:var(--anthracite-light);}
+  .form-check{display:flex;align-items:flex-start;gap:0.8rem;font-size:0.82rem;color:var(--text-muted);}
+  .form-check input{margin-top:2px;accent-color:var(--emerald);}
+  .btn-submit{
+    padding:1rem 2.5rem;align-self:flex-start;
+    background:var(--emerald);color:var(--anthracite);
+    font-family:'DM Sans',sans-serif;
+    font-weight:700;font-size:0.85rem;letter-spacing:0.1em;text-transform:uppercase;
+    border:none;border-radius:2px;cursor:pointer;
+    transition:all .3s;
+  }
+  .btn-submit:hover{background:var(--emerald-dark);transform:translateY(-2px);}
+  .form-success{
+    display:none;
+    padding:1.2rem;
+    background:var(--emerald-glow);
+    border:1px solid rgba(46,204,138,0.3);
+    color:var(--emerald);
+    font-size:0.9rem;
+    border-radius:2px;
+    text-align:center;
+  }
+
+  /* ── FOOTER ── */
+  footer{
+    background:var(--anthracite-light);
+    padding:3rem 4rem;
+    display:flex;align-items:center;justify-content:space-between;
+    border-top:1px solid rgba(245,242,237,0.06);
+    flex-wrap:wrap;gap:1.5rem;
+  }
+  .footer-copy{font-size:0.8rem;color:var(--text-muted);}
+  .footer-copy span{color:var(--emerald);}
+  .footer-links{display:flex;gap:2rem;}
+  .footer-links a{font-size:0.78rem;color:var(--text-muted);text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;}
+  .footer-links a:hover{color:var(--emerald);}
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+  .fade-up{opacity:0;animation:fadeUp .8s ease forwards;}
+  .fade-up.d1{animation-delay:.1s;}
+  .fade-up.d2{animation-delay:.25s;}
+  .fade-up.d3{animation-delay:.4s;}
+  .fade-up.d4{animation-delay:.55s;}
+
+  /* ── RESPONSIVE ── */
+  @media(max-width:900px){
+    nav{padding:1rem 2rem;}
+    #hero,section{padding:6rem 2rem 4rem;}
+    .services-grid{grid-template-columns:1fr 1fr;}
+    .why-grid,.contact-wrap{grid-template-columns:1fr;gap:3rem;}
+    .form-row{grid-template-columns:1fr;}
+    .hero-stats{gap:2rem;flex-wrap:wrap;}
+    footer{flex-direction:column;align-items:flex-start;}
+    .nav-links{display:none;}
+  }
+  @media(max-width:600px){
+    .services-grid{grid-template-columns:1fr;}
+  }
+
+  /* ── TESTIMONIALS ── */
+  #testimonials{background:var(--anthracite-light);position:relative;}
+  .testi-toggle-bar{
+    position:absolute;top:1.5rem;right:4rem;
+    display:flex;align-items:center;gap:0.7rem;
+    font-size:0.72rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;
+    color:var(--text-muted);cursor:pointer;user-select:none;
+  }
+  .toggle-switch{
+    width:36px;height:20px;background:var(--anthracite-mid);border-radius:20px;
+    position:relative;transition:background .3s;flex-shrink:0;
+  }
+  .toggle-switch::after{
+    content:'';position:absolute;top:3px;left:3px;
+    width:14px;height:14px;border-radius:50%;background:var(--text-muted);
+    transition:all .3s;
+  }
+  .toggle-switch.on{background:var(--emerald);}
+  .toggle-switch.on::after{left:19px;background:var(--anthracite);}
+  .testi-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);
+    gap:1.5rem;margin-top:3.5rem;
+  }
+  .testi-card{
+    background:var(--anthracite);
+    border:1px solid rgba(245,242,237,0.06);
+    border-radius:2px;padding:2rem;
+    position:relative;transition:all .4s;
+  }
+  .testi-card:hover{border-color:rgba(46,204,138,0.15);transform:translateY(-3px);}
+  .testi-stars{display:flex;gap:3px;margin-bottom:1.2rem;}
+  .testi-stars span{color:var(--emerald);font-size:0.9rem;}
+  .testi-quote{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.15rem;font-weight:300;line-height:1.65;
+    color:var(--cream);margin-bottom:1.5rem;
+    padding-left:1rem;border-left:2px solid var(--emerald);
+  }
+  .testi-author{display:flex;align-items:center;gap:0.9rem;}
+  .testi-avatar{
+    width:40px;height:40px;border-radius:2px;
+    background:var(--anthracite-mid);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.1rem;font-weight:700;color:var(--emerald);
+    flex-shrink:0;
+  }
+  .testi-author-info .name{font-size:0.88rem;font-weight:600;color:var(--cream);}
+  .testi-author-info .role{font-size:0.75rem;color:var(--text-muted);margin-top:0.15rem;}
+  .testi-tag{
+    position:absolute;top:1.2rem;right:1.2rem;
+    font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;
+    padding:0.2rem 0.6rem;border-radius:2px;
+  }
+  .testi-tag.entreprise{background:rgba(46,204,138,0.1);color:var(--emerald);}
+  .testi-tag.particulier{background:rgba(201,168,76,0.1);color:#c9a84c;}
+  @media(max-width:900px){
+    .testi-grid{grid-template-columns:1fr;}
+    .testi-toggle-bar{right:2rem;}
+  }
+
+</style>
+</head>
+<body>
+
+<!-- ── NAVBAR ── -->
+<nav>
+  <a class="nav-logo" href="#">
+    <div class="logo-svg-wrap">
+      <!-- LOGO SVG -->
+      <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="52" height="52" rx="2" fill="#2A2E33"/>
+        <!-- S stylisé avec circuit -->
+        <path d="M14 19C14 16.79 15.79 15 18 15H30C32.21 15 34 16.79 34 19C34 21.21 32.21 23 30 23H22C19.79 23 18 24.79 18 27V29C18 31.21 19.79 33 22 33H34" 
+              stroke="#2ECC8A" stroke-width="2.2" stroke-linecap="round"/>
+        <!-- Point accent Ô -->
+        <circle cx="38" cy="15" r="2.5" fill="#2ECC8A"/>
+        <circle cx="38" cy="15" r="1" fill="#1C1F22"/>
+        <!-- Ligne décorative bas -->
+        <line x1="14" y1="37" x2="38" y2="37" stroke="rgba(46,204,138,0.25)" stroke-width="1"/>
+        <!-- Petits noeuds circuit -->
+        <circle cx="14" cy="37" r="1.5" fill="#2ECC8A" opacity="0.6"/>
+        <circle cx="26" cy="37" r="1.5" fill="#2ECC8A" opacity="0.4"/>
+        <circle cx="38" cy="37" r="1.5" fill="#2ECC8A" opacity="0.6"/>
+      </svg>
+    </div>
+    <div class="logo-text">
+      <span class="sig">SÔ</span>
+      <span class="name">Sem<span>Ô</span>th</span>
+    </div>
+  </a>
+
+  <div class="nav-links">
+    <a href="#services" class="fr-text">Services</a>
+    <a href="#services" class="en-text" style="display:none">Services</a>
+    <a href="#why" class="fr-text">À propos</a>
+    <a href="#why" class="en-text" style="display:none">About</a>
+    <a href="#contact" class="fr-text">Contact</a>
+    <a href="#contact" class="en-text" style="display:none">Contact</a>
+    <a href="#contact" class="nav-cta fr-text">Devis gratuit</a>
+    <a href="#contact" class="nav-cta en-text" style="display:none">Free Quote</a>
+  </div>
+
+  <div style="display:flex;align-items:center;gap:1rem;">
+    <div class="lang-toggle">
+      <button class="active" onclick="setLang('fr')">FR</button>
+      <button onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="hero-bg-line"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-tag fade-up d1 fr-text">Conseil · Formation · Cybersécurité · Finance · IT · Abidjan, CI</div>
+    <div class="hero-tag fade-up d1 en-text" style="display:none">Consulting · Training · Cybersecurity · Finance · IT · Abidjan, CI</div>
+
+    <h1 class="fade-up d2">
+      <strong class="fr-text">Innover.<br><em>Sécuriser.</em><br>Prospérer.</strong>
+      <strong class="en-text" style="display:none">Innovate.<br><em>Secure.</em><br>Thrive.</strong>
+    </h1>
+
+    <p class="hero-sub fade-up d3 fr-text">
+      SemÔth accompagne entreprises et institutions dans leur transformation digitale — de la stratégie SI à la cybersécurité, de la formation au matériel, avec rigueur et expertise depuis Abidjan, Côte d'Ivoire.
+    </p>
+    <p class="hero-sub fade-up d3 en-text" style="display:none">
+      SemÔth partners with businesses and institutions in their digital transformation — from IT strategy to cybersecurity, training to hardware, with rigor and expertise from Abidjan, Côte d'Ivoire.
+    </p>
+
+    <div class="hero-actions fade-up d4">
+      <a href="#contact" class="btn-primary fr-text">Demander un devis</a>
+      <a href="#contact" class="btn-primary en-text" style="display:none">Request a Quote</a>
+      <a href="#services" class="btn-outline fr-text">Nos services</a>
+      <a href="#services" class="btn-outline en-text" style="display:none">Our Services</a>
+    </div>
+
+    <div class="hero-stats fade-up d4">
+      <div class="stat-item">
+        <div class="num">6+</div>
+        <div class="lbl fr-text">Domaines d'expertise</div>
+        <div class="lbl en-text" style="display:none">Expertise areas</div>
+      </div>
+      <div class="stat-item">
+        <div class="num">360°</div>
+        <div class="lbl fr-text">Accompagnement</div>
+        <div class="lbl en-text" style="display:none">Support</div>
+      </div>
+      <div class="stat-item">
+        <div class="num">24/7</div>
+        <div class="lbl fr-text">Disponibilité</div>
+        <div class="lbl en-text" style="display:none">Availability</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SERVICES ── -->
+<section id="services">
+  <div class="services-header">
+    <div>
+      <div class="section-tag fr-text">Ce que nous faisons</div>
+      <div class="section-tag en-text" style="display:none">What we do</div>
+      <h2 class="fr-text">Nos <span>Services</span></h2>
+      <h2 class="en-text" style="display:none">Our <span>Services</span></h2>
+    </div>
+    <p class="section-intro fr-text">Une offre intégrée pour répondre à tous vos besoins technologiques et financiers.</p>
+    <p class="section-intro en-text" style="display:none">An integrated offer to address all your technological and financial needs.</p>
+  </div>
+
+  <div class="services-grid">
+    <!-- 1 -->
+    <div class="service-card">
+      <span class="service-num">01</span>
+      <div class="service-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      </div>
+      <h3 class="fr-text">Conseil & Assistance SI</h3>
+      <h3 class="en-text" style="display:none">IT Consulting & Support</h3>
+      <p class="fr-text">Audit, stratégie et mise en œuvre de vos systèmes d'information. Nous optimisons votre infrastructure pour une performance maximale.</p>
+      <p class="en-text" style="display:none">Audit, strategy and implementation of your information systems. We optimize your infrastructure for maximum performance.</p>
+    </div>
+    <!-- 2 -->
+    <div class="service-card">
+      <span class="service-num">02</span>
+      <div class="service-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      </div>
+      <h3 class="fr-text">Formation</h3>
+      <h3 class="en-text" style="display:none">Training</h3>
+      <p class="fr-text">Programmes de formation sur mesure en SI, cybersécurité, outils numériques et gestion. Montée en compétences garantie pour vos équipes.</p>
+      <p class="en-text" style="display:none">Tailored training programs in IT, cybersecurity, digital tools and management. Guaranteed skills development for your teams.</p>
+    </div>
+    <!-- 3 -->
+    <div class="service-card">
+      <span class="service-num">03</span>
+      <div class="service-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h3 class="fr-text">Cybersécurité</h3>
+      <h3 class="en-text" style="display:none">Cybersecurity</h3>
+      <p class="fr-text">Protection de vos actifs numériques : audit de sécurité, détection des vulnérabilités, politiques de sécurité et réponse aux incidents.</p>
+      <p class="en-text" style="display:none">Protection of your digital assets: security audits, vulnerability detection, security policies and incident response.</p>
+    </div>
+    <!-- 4 -->
+    <div class="service-card">
+      <span class="service-num">04</span>
+      <div class="service-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+      </div>
+      <h3 class="fr-text">Gestion Financière</h3>
+      <h3 class="en-text" style="display:none">Financial Management</h3>
+      <p class="fr-text">Conseil en gestion financière, optimisation des coûts IT, ROI des projets technologiques et accompagnement budgétaire.</p>
+      <p class="en-text" style="display:none">Financial management consulting, IT cost optimization, technology project ROI, and budgetary guidance.</p>
+    </div>
+    <!-- 5 -->
+    <div class="service-card">
+      <span class="service-num">05</span>
+      <div class="service-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-4 0v2M12 12v4"/></svg>
+      </div>
+      <h3 class="fr-text">Vente de Matériel Informatique</h3>
+      <h3 class="en-text" style="display:none">IT Hardware Sales</h3>
+      <p class="fr-text">Fourniture, installation et maintenance de matériel informatique. Serveurs, postes de travail, réseaux — solutions adaptées à votre budget.</p>
+      <p class="en-text" style="display:none">Supply, installation and maintenance of IT hardware. Servers, workstations, networks — solutions tailored to your budget.</p>
+    </div>
+    <!-- 6 -->
+    <div class="service-card">
+      <span class="service-num">06</span>
+      <div class="service-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      </div>
+      <h3 class="fr-text">Solutions sur Mesure</h3>
+      <h3 class="en-text" style="display:none">Custom Solutions</h3>
+      <p class="fr-text">Infogérance &amp; maintenance de parcs informatiques, support technique à distance, intégration de systèmes et tout besoin technologique spécifique.</p>
+      <p class="en-text" style="display:none">IT infrastructure management &amp; maintenance, remote technical support, system integration and any specific technological need.</p>
+      <div class="service-tags" style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:1rem;">
+        <span class="service-tag-pill fr-text" style="font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:0.3rem 0.7rem;border:1px solid rgba(46,204,138,0.2);color:var(--emerald);border-radius:2px;">Infogérance</span>
+        <span class="service-tag-pill en-text" style="display:none;font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:0.3rem 0.7rem;border:1px solid rgba(46,204,138,0.2);color:var(--emerald);border-radius:2px;">IT Management</span>
+        <span class="service-tag-pill fr-text" style="font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:0.3rem 0.7rem;border:1px solid rgba(46,204,138,0.2);color:var(--emerald);border-radius:2px;">Support distant</span>
+        <span class="service-tag-pill en-text" style="display:none;font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:0.3rem 0.7rem;border:1px solid rgba(46,204,138,0.2);color:var(--emerald);border-radius:2px;">Remote Support</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── WHY SEMOTH ── -->
+<section id="why">
+  <div class="section-tag fr-text">Pourquoi nous choisir</div>
+  <div class="section-tag en-text" style="display:none">Why choose us</div>
+  <h2 class="fr-text">L'excellence au cœur de<br><span>chaque mission</span></h2>
+  <h2 class="en-text" style="display:none">Excellence at the heart of<br><span>every mission</span></h2>
+
+  <div class="why-grid">
+    <div class="why-visual">
+      <div class="why-box">
+        <div class="big-letter">SÔ</div>
+        <div style="position:relative;z-index:1;">
+          <p style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;color:var(--cream);line-height:1.5;margin-bottom:1.5rem;" class="fr-text">
+            "Notre mission : être le partenaire technologique de confiance qui transforme vos défis en opportunités."
+          </p>
+          <p style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;color:var(--cream);line-height:1.5;margin-bottom:1.5rem;" class="en-text" style="display:none">
+            "Our mission: to be the trusted technology partner that transforms your challenges into opportunities."
+          </p>
+          <div style="display:flex;align-items:center;gap:0.8rem;">
+            <div style="width:32px;height:32px;background:var(--emerald);display:flex;align-items:center;justify-content:center;border-radius:2px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1c1f22" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <span style="font-size:0.82rem;color:var(--text-muted);letter-spacing:0.08em;text-transform:uppercase;" class="fr-text">Engagement qualité certifié</span>
+            <span style="font-size:0.82rem;color:var(--text-muted);letter-spacing:0.08em;text-transform:uppercase;" class="en-text" style="display:none">Certified quality commitment</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="why-pillars">
+      <div class="pillar">
+        <div class="pillar-dot"></div>
+        <div>
+          <h4 class="fr-text">Expertise pluridisciplinaire</h4>
+          <h4 class="en-text" style="display:none">Multidisciplinary expertise</h4>
+          <p class="fr-text">Une équipe maîtrisant à la fois les dimensions techniques, sécuritaires et financières pour une vision à 360° de vos enjeux.</p>
+          <p class="en-text" style="display:none">A team mastering both technical, security and financial dimensions for a 360° view of your challenges.</p>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-dot"></div>
+        <div>
+          <h4 class="fr-text">Approche sur mesure</h4>
+          <h4 class="en-text" style="display:none">Tailored approach</h4>
+          <p class="fr-text">Aucune solution générique. Chaque mission est conçue selon vos contraintes, votre secteur et vos objectifs spécifiques.</p>
+          <p class="en-text" style="display:none">No generic solutions. Every mission is designed according to your constraints, sector and specific objectives.</p>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-dot"></div>
+        <div>
+          <h4 class="fr-text">Partenariat durable</h4>
+          <h4 class="en-text" style="display:none">Long-term partnership</h4>
+          <p class="fr-text">Nous construisons des relations de confiance sur le long terme, avec un suivi continu et une disponibilité permanente.</p>
+          <p class="en-text" style="display:none">We build long-term trust relationships, with continuous monitoring and permanent availability.</p>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-dot"></div>
+        <div>
+          <h4 class="fr-text">Réactivité & Confidentialité</h4>
+          <h4 class="en-text" style="display:none">Responsiveness & Confidentiality</h4>
+          <p class="fr-text">Interventions rapides et discrétion totale. Vos données et vos projets restent protégés à chaque étape.</p>
+          <p class="en-text" style="display:none">Fast response and total discretion. Your data and projects remain protected at every stage.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section id="contact">
+  <div class="section-tag fr-text">Travaillons ensemble</div>
+  <div class="section-tag en-text" style="display:none">Let's work together</div>
+  <h2 class="fr-text">Contactez-nous /<br><span>Demandez un devis</span></h2>
+  <h2 class="en-text" style="display:none">Contact us /<br><span>Request a quote</span></h2>
+
+  <div class="contact-wrap">
+    <div class="contact-info">
+      <h3 class="fr-text">Parlons de votre projet</h3>
+      <h3 class="en-text" style="display:none">Let's talk about your project</h3>
+      <p style="font-size:0.9rem;color:var(--text-muted);line-height:1.75;margin-bottom:2.5rem;" class="fr-text">
+        Prêt à transformer votre organisation ? Notre équipe est disponible pour étudier vos besoins et vous proposer une solution adaptée.
+      </p>
+      <p style="font-size:0.9rem;color:var(--text-muted);line-height:1.75;margin-bottom:2.5rem;" class="en-text" style="display:none">
+        Ready to transform your organization? Our team is available to study your needs and propose a tailored solution.
+      </p>
+      <div class="contact-detail">
+        <div class="icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.1 1.18 2 2 0 012.11 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        </div>
+        <span><a href="tel:+2250707291110">+225 07 07 29 11 10</a></span>
+      </div>
+      <div class="contact-detail">
+        <div class="icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <span><a href="mailto:maximesey@gmail.com">maximesey@gmail.com</a></span>
+      </div>
+      <div class="contact-detail">
+        <div class="icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <span>Cocody, Abidjan — Côte d'Ivoire</span>
+      </div>
+      <a href="https://wa.me/2250707291110" target="_blank" style="display:inline-flex;align-items:center;gap:0.7rem;margin-top:1.5rem;padding:0.75rem 1.5rem;background:rgba(37,211,102,0.1);border:1px solid rgba(37,211,102,0.3);color:#25d366;border-radius:2px;text-decoration:none;font-size:0.82rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;transition:all .3s;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <span class="fr-text">Discuter sur WhatsApp</span>
+        <span class="en-text" style="display:none">Chat on WhatsApp</span>
+      </a>
+    </div>
+
+    <form class="contact-form" onsubmit="handleSubmit(event)">
+      <div class="form-row">
+        <div class="field">
+          <label class="fr-text">Nom complet *</label>
+          <label class="en-text" style="display:none">Full name *</label>
+          <input type="text" required placeholder="Jean Dupont"/>
+        </div>
+        <div class="field">
+          <label class="fr-text">Entreprise</label>
+          <label class="en-text" style="display:none">Company</label>
+          <input type="text" placeholder="Votre société"/>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label>Email *</label>
+          <input type="email" required placeholder="contact@societe.com"/>
+        </div>
+        <div class="field">
+          <label class="fr-text">Téléphone</label>
+          <label class="en-text" style="display:none">Phone</label>
+          <input type="tel" placeholder="+225 XX XX XX XX"/>
+        </div>
+      </div>
+      <div class="field">
+        <label class="fr-text">Service concerné</label>
+        <label class="en-text" style="display:none">Service needed</label>
+        <select>
+          <option value="" class="fr-text">-- Sélectionnez un service --</option>
+          <option class="fr-text">Conseil & Assistance SI</option>
+          <option class="fr-text">Formation</option>
+          <option class="fr-text">Cybersécurité</option>
+          <option class="fr-text">Gestion Financière</option>
+          <option class="fr-text">Vente de Matériel Informatique</option>
+          <option class="fr-text">Solutions sur Mesure</option>
+        </select>
+      </div>
+      <div class="field">
+        <label class="fr-text">Votre message *</label>
+        <label class="en-text" style="display:none">Your message *</label>
+        <textarea required placeholder="Décrivez votre projet ou besoin..."></textarea>
+      </div>
+      <div class="form-check">
+        <input type="checkbox" required id="rgpd"/>
+        <label for="rgpd" class="fr-text">J'accepte que SemÔth traite mes données pour répondre à ma demande.</label>
+        <label for="rgpd" class="en-text" style="display:none">I agree that SemÔth processes my data to respond to my request.</label>
+      </div>
+      <button type="submit" class="btn-submit fr-text">Envoyer ma demande →</button>
+      <button type="submit" class="btn-submit en-text" style="display:none">Send my request →</button>
+      <div class="form-success" id="formSuccess">
+        ✓ <span class="fr-text">Message envoyé ! Nous vous répondrons sous 24h.</span>
+        <span class="en-text" style="display:none">Message sent! We'll get back to you within 24h.</span>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- ── TESTIMONIALS ── -->
+<section id="testimonials">
+  <div class="testi-toggle-bar" onclick="toggleTestimonials()">
+    <span class="fr-text">Masquer la section</span>
+    <span class="en-text" style="display:none">Hide section</span>
+    <div class="toggle-switch on" id="testiSwitch"></div>
+  </div>
+
+  <div id="testiContent">
+    <div class="section-tag fr-text">Ce qu'ils disent</div>
+    <div class="section-tag en-text" style="display:none">What they say</div>
+    <h2 class="fr-text">Ils nous font <span>confiance</span></h2>
+    <h2 class="en-text" style="display:none">They trust <span>us</span></h2>
+    <p class="section-intro fr-text">Entreprises et particuliers témoignent de leur expérience avec SemÔth.</p>
+    <p class="section-intro en-text" style="display:none">Businesses and individuals share their experience with SemÔth.</p>
+
+    <div class="testi-grid">
+
+      <!-- T1 - Entreprise / SI -->
+      <div class="testi-card">
+        <span class="testi-tag entreprise fr-text">Entreprise</span>
+        <span class="testi-tag entreprise en-text" style="display:none">Business</span>
+        <div class="testi-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p class="testi-quote fr-text">"SemÔth a complètement restructuré notre système d'information en moins de 3 mois. Résultat : zéro panne depuis la mise en production. Une équipe sérieuse et réactive."</p>
+        <p class="testi-quote en-text" style="display:none">"SemÔth completely restructured our information system in under 3 months. Result: zero downtime since going live. A serious and responsive team."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">KA</div>
+          <div class="testi-author-info">
+            <div class="name">Kouamé Atta</div>
+            <div class="role fr-text">Directeur Général · Société de distribution, Abidjan</div>
+            <div class="role en-text" style="display:none">CEO · Distribution company, Abidjan</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- T2 - Particulier / Formation -->
+      <div class="testi-card">
+        <span class="testi-tag particulier fr-text">Particulier</span>
+        <span class="testi-tag particulier en-text" style="display:none">Individual</span>
+        <div class="testi-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p class="testi-quote fr-text">"La formation en cybersécurité était exactement ce qu'il me fallait pour évoluer professionnellement. Contenu dense, formateurs disponibles et exercices très pratiques."</p>
+        <p class="testi-quote en-text" style="display:none">"The cybersecurity training was exactly what I needed to grow professionally. Dense content, available trainers and very practical exercises."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">MC</div>
+          <div class="testi-author-info">
+            <div class="name">Marie-Claire Brou</div>
+            <div class="role fr-text">Ingénieure réseau · Cocody, Abidjan</div>
+            <div class="role en-text" style="display:none">Network Engineer · Cocody, Abidjan</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- T3 - Entreprise / Cybersécurité -->
+      <div class="testi-card">
+        <span class="testi-tag entreprise fr-text">Entreprise</span>
+        <span class="testi-tag entreprise en-text" style="display:none">Business</span>
+        <div class="testi-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p class="testi-quote fr-text">"Après un incident de sécurité, SemÔth est intervenu en urgence et a sécurisé toute notre infrastructure. Leur audit a révélé des failles que nous ignorions totalement."</p>
+        <p class="testi-quote en-text" style="display:none">"After a security incident, SemÔth intervened urgently and secured our entire infrastructure. Their audit revealed vulnerabilities we were completely unaware of."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">DY</div>
+          <div class="testi-author-info">
+            <div class="name">Djibril Yao</div>
+            <div class="role fr-text">DSI · Cabinet comptable, Plateau, Abidjan</div>
+            <div class="role en-text" style="display:none">IT Manager · Accounting firm, Plateau, Abidjan</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- T4 - Particulier / Matériel -->
+      <div class="testi-card">
+        <span class="testi-tag particulier fr-text">Particulier</span>
+        <span class="testi-tag particulier en-text" style="display:none">Individual</span>
+        <div class="testi-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p class="testi-quote fr-text">"J'ai acheté mon poste de travail via SemÔth. Bon rapport qualité/prix, livraison rapide à Cocody et installation incluse. Je recommande sans hésitation."</p>
+        <p class="testi-quote en-text" style="display:none">"I bought my workstation through SemÔth. Great value for money, fast delivery in Cocody, and installation included. I recommend without hesitation."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">FN</div>
+          <div class="testi-author-info">
+            <div class="name">Fatou N'Diaye</div>
+            <div class="role fr-text">Freelance designer · Cocody, Abidjan</div>
+            <div class="role en-text" style="display:none">Freelance designer · Cocody, Abidjan</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- T5 - Entreprise / Gestion financière -->
+      <div class="testi-card">
+        <span class="testi-tag entreprise fr-text">Entreprise</span>
+        <span class="testi-tag entreprise en-text" style="display:none">Business</span>
+        <div class="testi-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p class="testi-quote fr-text">"Le conseil en gestion financière de SemÔth nous a permis de réduire nos coûts IT de 30% tout en améliorant nos performances. Un regard extérieur vraiment précieux."</p>
+        <p class="testi-quote en-text" style="display:none">"SemÔth's financial management consulting helped us cut IT costs by 30% while improving performance. A truly valuable external perspective."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">AB</div>
+          <div class="testi-author-info">
+            <div class="name">Adjoua Bamba</div>
+            <div class="role fr-text">DAF · PME agroalimentaire, Yopougon</div>
+            <div class="role en-text" style="display:none">CFO · Food industry SME, Yopougon</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- T6 - Particulier / Support -->
+      <div class="testi-card">
+        <span class="testi-tag particulier fr-text">Particulier</span>
+        <span class="testi-tag particulier en-text" style="display:none">Individual</span>
+        <div class="testi-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p class="testi-quote fr-text">"Problème résolu en moins d'une heure par support à distance. Je n'avais même pas besoin de me déplacer. Efficace, professionnel, et très abordable."</p>
+        <p class="testi-quote en-text" style="display:none">"Problem solved in under an hour via remote support. I didn't even need to go anywhere. Efficient, professional, and very affordable."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">SK</div>
+          <div class="testi-author-info">
+            <div class="name">Sékou Konaté</div>
+            <div class="role fr-text">Étudiant en master · Université FHB, Abidjan</div>
+            <div class="role en-text" style="display:none">Master's student · FHB University, Abidjan</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end testi-grid -->
+  </div><!-- end testiContent -->
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div>
+    <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:0.5rem;">
+      <svg viewBox="0 0 36 36" width="28" height="28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="36" height="36" rx="2" fill="#2A2E33"/>
+        <path d="M9 13C9 11.34 10.34 10 12 10H21C22.66 10 24 11.34 24 13C24 14.66 22.66 16 21 16H15C13.34 16 12 17.34 12 19V20C12 21.66 13.34 23 15 23H24" stroke="#2ECC8A" stroke-width="1.8" stroke-linecap="round"/>
+        <circle cx="27" cy="10" r="2" fill="#2ECC8A"/>
+      </svg>
+      <span style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--cream);">Sem<span style="color:var(--emerald);">Ô</span>th</span>
+    </div>
+    <p class="footer-copy fr-text">© 2025 <span>SemÔth</span>. Tous droits réservés.</p>
+    <p class="footer-copy en-text" style="display:none">© 2025 <span>SemÔth</span>. All rights reserved.</p>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:0.4rem;">
+    <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.78rem;color:var(--text-muted);">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      Cocody, Abidjan · Côte d'Ivoire
+    </div>
+    <div style="display:flex;gap:1.2rem;margin-top:0.5rem;">
+      <a href="https://wa.me/2250707291110" target="_blank" style="display:flex;align-items:center;gap:0.4rem;font-size:0.78rem;color:var(--text-muted);text-decoration:none;" onmouseover="this.style.color='#25d366'" onmouseout="this.style.color='var(--text-muted)'">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp
+      </a>
+      <a href="mailto:maximesey@gmail.com" style="font-size:0.78rem;color:var(--text-muted);text-decoration:none;" onmouseover="this.style.color='var(--emerald)'" onmouseout="this.style.color='var(--text-muted)'">maximesey@gmail.com</a>
+    </div>
+  </div>
+  <div class="footer-links">
+    <a href="#services" class="fr-text">Services</a>
+    <a href="#why" class="fr-text">À propos</a>
+    <a href="#contact" class="fr-text">Contact</a>
+    <a href="#services" class="en-text" style="display:none">Services</a>
+    <a href="#why" class="en-text" style="display:none">About</a>
+    <a href="#contact" class="en-text" style="display:none">Contact</a>
+  </div>
+</footer>
+
+<script>
+  // LANG TOGGLE
+  function setLang(lang){
+    document.querySelectorAll('.fr-text').forEach(el=>{
+      el.style.display = lang==='fr' ? '' : 'none';
+    });
+    document.querySelectorAll('.en-text').forEach(el=>{
+      el.style.display = lang==='en' ? '' : 'none';
+    });
+    document.querySelectorAll('.lang-toggle button').forEach((btn,i)=>{
+      btn.classList.toggle('active', (i===0&&lang==='fr')||(i===1&&lang==='en'));
+    });
+  }
+
+  // FORM
+  function handleSubmit(e){
+    e.preventDefault();
+    const btn = e.target.querySelector('.btn-submit');
+    btn.textContent='...';btn.disabled=true;
+    setTimeout(()=>{
+      document.getElementById('formSuccess').style.display='block';
+      btn.style.display='none';
+      e.target.reset();
+    },1200);
+  }
+
+  // SCROLL REVEAL
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.style.opacity='1';
+        entry.target.style.transform='translateY(0)';
+      }
+    });
+  },{threshold:0.1});
+  document.querySelectorAll('.service-card,.pillar,.why-box').forEach(el=>{
+    el.style.opacity='0';
+    el.style.transform='translateY(20px)';
+    el.style.transition='opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+
+  // TESTIMONIALS TOGGLE
+  function toggleTestimonials(){
+    const content = document.getElementById('testiContent');
+    const sw = document.getElementById('testiSwitch');
+    const label = document.querySelector('.testi-toggle-bar span.fr-text') || document.querySelector('.testi-toggle-bar span');
+    const isOn = sw.classList.contains('on');
+    if(isOn){
+      content.style.display='none';
+      sw.classList.remove('on');
+      document.querySelectorAll('.testi-toggle-bar .fr-text').forEach(el=>el.textContent='Afficher la section');
+      document.querySelectorAll('.testi-toggle-bar .en-text').forEach(el=>el.textContent='Show section');
+    } else {
+      content.style.display='';
+      sw.classList.add('on');
+      document.querySelectorAll('.testi-toggle-bar .fr-text').forEach(el=>el.textContent='Masquer la section');
+      document.querySelectorAll('.testi-toggle-bar .en-text').forEach(el=>el.textContent='Hide section');
+    }
+  }
+
+</script>
+</body>
+</html>
