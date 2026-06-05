@@ -113,16 +113,16 @@
     position:fixed;top:0;left:0;right:0;z-index:100;
     display:flex;align-items:center;justify-content:space-between;
     padding:1.2rem 4rem;
-    background:rgba(186,225,255,0.97);
+    background:rgba(247,249,252,0.97);
     backdrop-filter:blur(18px);
-    border-bottom:1px solid rgba(26,54,93,0.1);
-    box-shadow:0 2px 20px rgba(26,54,93,0.07);
+    border-bottom:1px solid rgba(26,54,93,0.07);
+    box-shadow:0 2px 16px rgba(26,54,93,0.05);
   }
   .nav-logo{display:flex;align-items:center;gap:1rem;text-decoration:none;}
-  .logo-svg-wrap svg{width:52px;height:52px;}
-  .logo-text{display:flex;flex-direction:column;line-height:1;}
-  .logo-text .sig{font-family:'Raleway',sans-serif;font-size:1rem;font-weight:800;color:#ffffff;letter-spacing:0.25em;text-transform:uppercase;text-shadow:0 1px 4px rgba(0,0,0,0.25);}
-  .logo-text .name{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;color:var(--navy);letter-spacing:0.05em;}
+  .logo-svg-wrap{display:none;}
+  .logo-text{display:flex;flex-direction:column;line-height:1;background:var(--navy);padding:0.4rem 0.9rem;border-radius:6px;}
+  .logo-text .sig{font-family:'Raleway',sans-serif;font-size:0.85rem;font-weight:900;color:#111827;letter-spacing:0.3em;text-transform:uppercase;}
+  .logo-text .name{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;color:#ffffff;letter-spacing:0.05em;}
   .logo-text .name span{color:var(--accent);}
   .nav-links{display:flex;align-items:center;gap:2.5rem;}
   .nav-links a{
@@ -190,7 +190,7 @@
     font-weight:300;line-height:1.05;
     color:var(--cream);margin-bottom:1.5rem;
   }
-  h1 em{font-style:normal;color:#111827;}
+  h1 em{font-style:normal;color:#ffffff;}
   h1 strong{font-weight:700;}
   .hero-sub{
     font-size:1.05rem;font-weight:300;line-height:1.75;
@@ -252,21 +252,12 @@
   }
   .service-card{
     background:#ffffff;
-    border:1px solid rgba(26,54,93,0.08);
-    box-shadow:0 2px 15px rgba(26,54,93,0.05);
+    border:none;
     padding:2.5rem;
     position:relative;overflow:hidden;
     transition:all .4s;
     cursor:default;
-    border-radius:6px;
   }
-  .service-card.kaki{
-    background:var(--kaki);
-    border-color:rgba(120,130,80,0.2);
-  }
-  .service-card.kaki:hover{background:var(--kaki-hover);}
-  .service-card.kaki .service-icon{border-color:rgba(100,110,60,0.3);color:var(--kaki-icon);background:rgba(100,110,60,0.08);}
-  .service-card.kaki .service-num{color:rgba(100,110,60,0.12);}
   .service-card::before{
     content:'';
     position:absolute;bottom:0;left:0;right:0;height:3px;
@@ -588,6 +579,15 @@
   .hero-image::before{content:'';position:absolute;top:-10px;right:-10px;width:100%;height:100%;border:2px solid rgba(26,54,93,0.1);border-radius:12px;z-index:0;pointer-events:none;}
   .hero-image img{position:relative;z-index:1;}
 
+
+  /* DYNAMIC FORM */
+  .dyn-section{background:#f7f9fc;border:1px solid rgba(26,54,93,0.1);border-radius:6px;padding:1.2rem 1.5rem;margin-bottom:0.5rem;}
+  .dyn-section-title{font-size:0.72rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--navy);margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem;}
+  .dyn-section-title::before{content:'';width:14px;height:2px;background:var(--accent);}
+  .dyn-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+  .dyn-grid.single{grid-template-columns:1fr;}
+  @media(max-width:600px){.dyn-grid{grid-template-columns:1fr;}}
+
 </style>
 </head>
 <body>
@@ -714,7 +714,7 @@
 
   <div class="services-grid">
     <!-- 1 -->
-    <div class="service-card kaki">
+    <div class="service-card">
       <span class="service-num">01</span>
       <div class="service-icon">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
@@ -725,7 +725,7 @@
       <p class="en-text" style="display:none">Audit, strategy and implementation of your information systems. We optimize your infrastructure for maximum performance.</p>
     </div>
     <!-- 2 -->
-    <div class="service-card kaki">
+    <div class="service-card">
       <span class="service-num">02</span>
       <div class="service-icon">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
@@ -736,7 +736,7 @@
       <p class="en-text" style="display:none">Tailored training programs in IT, cybersecurity, digital tools and management. Guaranteed skills development for your teams.</p>
     </div>
     <!-- 3 -->
-    <div class="service-card kaki">
+    <div class="service-card">
       <span class="service-num">03</span>
       <div class="service-icon">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -1273,6 +1273,100 @@
 </footer>
 
 <script>
+
+  // DYNAMIC FORM FIELDS
+  const fieldConfigs = {
+    formation: {
+      title: "Détails de la formation",
+      fields: [
+        {name:"theme_formation", label:"Thème / Domaine souhaité *", type:"text", required:true, placeholder:"Ex: Cybersécurité, Bureautique, ERP..."},
+        {name:"niveau", label:"Niveau des participants *", type:"select", required:true, options:["Débutant","Intermédiaire","Avancé","Mixte"]},
+        {name:"nb_participants", label:"Nombre de participants *", type:"number", required:true, placeholder:"Ex: 10"},
+        {name:"format", label:"Format souhaité *", type:"select", required:true, options:["Présentiel","Distanciel","Hybride"]},
+        {name:"dates_souhaitees", label:"Dates souhaitées *", type:"text", required:true, placeholder:"Ex: Janvier 2026, semaine du 15..."},
+        {name:"budget_formation", label:"Budget estimé (FCFA)", type:"text", required:false, placeholder:"Ex: 500 000 FCFA"},
+      ]
+    },
+    conseil_si: {
+      title: "Détails du projet SI",
+      fields: [
+        {name:"type_structure", label:"Type de structure *", type:"select", required:true, options:["PME","Grande entreprise","Administration","ONG","Startup","Particulier"]},
+        {name:"nb_postes", label:"Nombre de postes / utilisateurs *", type:"number", required:true, placeholder:"Ex: 25"},
+        {name:"problematique", label:"Problématique principale *", type:"textarea", required:true, placeholder:"Décrivez votre situation actuelle et vos besoins..."},
+        {name:"delai_si", label:"Délai souhaité *", type:"select", required:true, options:["Urgent (< 1 mois)","Court terme (1-3 mois)","Moyen terme (3-6 mois)","Long terme (> 6 mois)"]},
+      ]
+    },
+    cybersecurite: {
+      title: "Détails de la demande cybersécurité",
+      fields: [
+        {name:"type_besoin_cyber", label:"Type de besoin *", type:"select", required:true, options:["Audit de sécurité","Protection & Prévention","Réponse à incident","Formation sécurité","Politique de sécurité"]},
+        {name:"infrastructure", label:"Type d'infrastructure *", type:"select", required:true, options:["Cloud","On-premise (local)","Hybride","Ne sais pas"]},
+        {name:"nb_users_cyber", label:"Nombre d'utilisateurs *", type:"number", required:true, placeholder:"Ex: 50"},
+        {name:"urgence", label:"Niveau d'urgence *", type:"select", required:true, options:["Normal","Urgent","Critique (incident en cours)"]},
+        {name:"description_cyber", label:"Description de la situation *", type:"textarea", required:true, placeholder:"Décrivez votre contexte et vos préoccupations..."},
+      ]
+    },
+    gestion_financiere: {
+      title: "Détails de la demande financière",
+      fields: [
+        {name:"type_besoin_fin", label:"Type de besoin *", type:"select", required:true, options:["Optimisation des coûts IT","Calcul ROI projet technologique","Accompagnement budgétaire","Audit financier","Autre"]},
+        {name:"outil_gestion", label:"Outil de gestion souhaité", type:"select", required:false, options:["Aucun (conseil uniquement)","ERP Sage","Odoo","Dolibarr","Solution sur mesure","Autre / Ne sais pas"]},
+        {name:"taille_structure", label:"Taille de la structure *", type:"select", required:true, options:["Auto-entrepreneur","TPE (< 10 employés)","PME (10-250)","Grande entreprise (> 250)","Institution / Administration"]},
+        {name:"budget_fin", label:"Budget estimé (FCFA)", type:"text", required:false, placeholder:"Ex: 1 000 000 FCFA"},
+        {name:"description_fin", label:"Description du besoin *", type:"textarea", required:true, placeholder:"Décrivez votre situation financière et vos objectifs..."},
+      ]
+    },
+    materiel: {
+      title: "Détails de la commande matériel",
+      fields: [
+        {name:"type_materiel", label:"Type de matériel *", type:"select", required:true, options:["Ordinateurs portables","Ordinateurs de bureau","Serveurs","Équipements réseau","Imprimantes / Scanners","Écrans / Périphériques","Pack complet (poste de travail)","Autre"]},
+        {name:"quantite", label:"Quantité *", type:"number", required:true, placeholder:"Ex: 5"},
+        {name:"budget_materiel", label:"Budget estimé (FCFA) *", type:"text", required:true, placeholder:"Ex: 2 500 000 FCFA"},
+        {name:"delai_livraison", label:"Délai de livraison souhaité *", type:"select", required:true, options:["Urgent (< 1 semaine)","Sous 2 semaines","Sous 1 mois","Flexible"]},
+        {name:"specs", label:"Spécifications particulières", type:"textarea", required:false, placeholder:"Ex: RAM minimum 16Go, processeur i7, écran 24 pouces..."},
+      ]
+    },
+    solutions: {
+      title: "Détails de la demande",
+      fields: [
+        {name:"type_solution", label:"Type de besoin *", type:"select", required:true, options:["Infogérance (gestion parc)","Support technique à distance","Intégration de systèmes","Développement sur mesure","Autre"]},
+        {name:"infra_existante", label:"Infrastructure existante *", type:"textarea", required:true, placeholder:"Décrivez votre parc informatique actuel..."},
+        {name:"delai_sol", label:"Délai souhaité *", type:"select", required:true, options:["Urgent","Court terme (< 3 mois)","Moyen terme (3-6 mois)","Flexible"]},
+        {name:"budget_sol", label:"Budget estimé (FCFA)", type:"text", required:false, placeholder:"Ex: 500 000 FCFA / mois"},
+      ]
+    }
+  };
+
+  function updateDynamicFields(service){
+    const container = document.getElementById('dynamic-fields');
+    document.getElementById('hidden-service').value = service;
+    container.innerHTML = '';
+    if(!service || !fieldConfigs[service]) return;
+    const cfg = fieldConfigs[service];
+    let html = '<div class="dyn-section"><div class="dyn-section-title">' + cfg.title + '</div><div class="dyn-grid">';
+    let singleCount = 0;
+    cfg.fields.forEach(f => {
+      const isWide = f.type === 'textarea';
+      if(isWide){ html += '</div><div class="dyn-grid single">'; }
+      html += '<div class="field">';
+      html += '<label>' + f.label + '</label>';
+      if(f.type === 'select'){
+        html += '<select name="' + f.name + '"' + (f.required?' required':'') + '>';
+        html += '<option value="">-- Choisir --</option>';
+        f.options.forEach(o => { html += '<option value="' + o + '">' + o + '</option>'; });
+        html += '</select>';
+      } else if(f.type === 'textarea'){
+        html += '<textarea name="' + f.name + '" rows="3"' + (f.required?' required':'') + ' placeholder="' + (f.placeholder||'') + '"></textarea>';
+      } else {
+        html += '<input type="' + f.type + '" name="' + f.name + '"' + (f.required?' required':'') + ' placeholder="' + (f.placeholder||'') + '"/>';
+      }
+      html += '</div>';
+      if(isWide){ html += '</div><div class="dyn-grid">'; }
+    });
+    html += '</div></div>';
+    container.innerHTML = html;
+  }
+
   // FAQ TOGGLE
   function toggleFaq(el){
     const item = el.parentElement;
